@@ -1,16 +1,15 @@
 # OpenCodeReview 知识库
 
-本知识库说明 OpenCodeReview 自身的用途、使用方式、实现边界与集成注意事项，供跨终端开发时查阅。项目需求、产品形态及自定义报告方案单独记录在 [本项目设计记录](../project-design.md)，不作为上游能力写入本知识库。
+本知识库说明 OpenCodeReview 自身的用途、使用方式、实现边界与集成注意事项。项目需求、产品形态及自定义报告方案单独记录在 [本项目设计记录](../project-design.md)，不作为上游能力写入本知识库。
 
 ## 文档索引
 
 | 文件 | 内容 |
 |---|---|
-| [主文件](README.md) | 能力概览、运行入口、证据范围与维护约定 |
 | [规则、背景与知识读取](rules-and-context.md) | `--rule`、`--background`、Markdown 背景、工具读取与 Skill 边界 |
 | [结果、会话与 HTML 导出](results-and-sessions.md) | JSON、状态、Viewer、离线 HTML、数据留存 |
 
-这三个文件构成完整知识库；现有 [XR 规则示例](../examples/xr-review-rule.json) 是可选参考，不是默认配置。
+现有 [XR 规则示例](../examples/xr-review-rule.json) 是可选参考，不是默认配置。
 
 ## 工具用途
 
@@ -48,11 +47,11 @@ OpenCodeReview（简称 OCR）是代码审查 CLI。它获取 Git 差异，筛�
 
 自动化调用应记录实际提交编号及比较起点，避免分支移动后无法确定当时审查对象。范围模式中的上下文工具面向目标提交；不能假设工作目录里临时添加的知识文件会被读取。
 
-以下均为 PowerShell 示例，仓库、分支与文件路径为占位值；RTK 是本工作环境的命令包装器，不是 OCR 必需依赖。
+以下均为 PowerShell 示例，仓库、分支与文件路径为占位值。
 
 ```powershell
-rtk pwsh -Command 'ocr review --repo "E:\代码仓库" --from "main" --to "feature/example" --preview'
-rtk pwsh -Command 'ocr review --repo "E:\代码仓库" --from "main" --to "feature/example" --background-file "E:\审查资料\background.md" --rule "E:\审查资料\rule.json" --format json --output "E:\审查结果\result.json"'
+ocr review --repo "E:\代码仓库" --from "main" --to "feature/example" --preview
+ocr review --repo "E:\代码仓库" --from "main" --to "feature/example" --background-file "E:\审查资料\background.md" --rule "E:\审查资料\rule.json" --format json --output "E:\审查结果\result.json"
 ```
 
 模型需提前配置。供应商与连接配置通常位于 `~/.opencodereview/config.json`，第三方服务支持范围以所用版本为准。以上命令不包含密钥，知识库也不保存密钥。
